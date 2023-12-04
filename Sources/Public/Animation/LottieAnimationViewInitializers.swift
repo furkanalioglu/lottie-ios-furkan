@@ -23,12 +23,13 @@ extension LottieAnimationView {
     bundle: Bundle = Bundle.main,
     subdirectory: String? = nil,
     imageProvider: AnimationImageProvider? = nil,
+    replacementImages: [String:String]? = nil,
     animationCache: AnimationCacheProvider? = LottieAnimationCache.shared,
     configuration: LottieConfiguration = .shared)
   {
     let animation = LottieAnimation.named(name, bundle: bundle, subdirectory: subdirectory, animationCache: animationCache)
     let provider = imageProvider ?? BundleImageProvider(bundle: bundle, searchPath: nil)
-    self.init(animation: animation, imageProvider: provider, configuration: configuration)
+    self.init(animation: animation, imageProvider: provider,replacementImages: replacementImages, configuration: configuration)
   }
 
   /// Loads a Lottie animation from a JSON file in a specific path on disk.
