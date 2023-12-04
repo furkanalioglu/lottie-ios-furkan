@@ -50,6 +50,7 @@ final class LayerImageProvider {
                     let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent(newImageName)
                     if let image = UIImage(contentsOfFile: imageURL.path)?.cgImage {
                         imageLayer.image = image
+                        print("reloaded images with \(replacementImages)")
                     }
                 } else {
                     // If the asset's name is not in imageReplacementMap, use the default provider
