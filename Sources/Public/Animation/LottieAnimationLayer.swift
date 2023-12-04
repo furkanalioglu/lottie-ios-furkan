@@ -1160,13 +1160,10 @@ public class LottieAnimationLayer: CALayer {
     let rootAnimationLayer: RootAnimationLayer?
     switch renderingEngine {
     case .automatic:
-        print("se")
-      rootAnimationLayer = makeMainThreadAnimationLayer(for: animation,replacementImages: self.replacementImages)
+      rootAnimationLayer = makeAutomaticEngineLayer(for: animation)
     case .specific(.coreAnimation):
-        print("se 3")
-      rootAnimationLayer = makeMainThreadAnimationLayer(for: animation,replacementImages: self.replacementImages)
+      rootAnimationLayer = makeCoreAnimationLayer(for: animation)
     case .specific(.mainThread):
-        print("se 4")
         rootAnimationLayer = makeMainThreadAnimationLayer(for: animation,replacementImages: self.replacementImages)
     }
 
