@@ -25,9 +25,6 @@ public class LottieAnimationLayer: CALayer {
     logger: LottieLogger = .shared)
   {
     self.animation = animation
-    if let replacementImages{
-        self.replacementImages = replacementImages
-    }
     self.imageProvider = imageProvider ?? BundleImageProvider(bundle: Bundle.main, searchPath: nil)
     if let replacementImages = replacementImages {
         self.replacementImages = replacementImages
@@ -1163,10 +1160,13 @@ public class LottieAnimationLayer: CALayer {
     let rootAnimationLayer: RootAnimationLayer?
     switch renderingEngine {
     case .automatic:
-      rootAnimationLayer = makeAutomaticEngineLayer(for: animation)
+        print("se")
+      rootAnimationLayer = makeMainThreadAnimationLayer(for: animation,replacementImages: self.replacementImages)
     case .specific(.coreAnimation):
-      rootAnimationLayer = makeCoreAnimationLayer(for: animation)
+        print("se 3")
+      rootAnimationLayer = makeMainThreadAnimationLayer(for: animation,replacementImages: self.replacementImages)
     case .specific(.mainThread):
+        print("se 4")
         rootAnimationLayer = makeMainThreadAnimationLayer(for: animation,replacementImages: self.replacementImages)
     }
 
