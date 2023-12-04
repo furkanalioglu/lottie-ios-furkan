@@ -29,6 +29,9 @@ public class LottieAnimationLayer: CALayer {
         self.replacementImages = replacementImages
     }
     self.imageProvider = imageProvider ?? BundleImageProvider(bundle: Bundle.main, searchPath: nil)
+    if let replacementImages = replacementImages {
+        self.replacementImages = replacementImages
+    }
     self.textProvider = textProvider
     self.fontProvider = fontProvider
     self.configuration = configuration
