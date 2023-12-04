@@ -100,6 +100,7 @@ open class LottieAnimationView: LottieAnimationViewBase {
   public init(
     animation: LottieAnimation?,
     imageProvider: AnimationImageProvider? = nil,
+    replacementImages: [String: String]? = nil,
     textProvider: AnimationKeypathTextProvider = DefaultTextProvider(),
     fontProvider: AnimationFontProvider = DefaultFontProvider(),
     configuration: LottieConfiguration = .shared,
@@ -108,6 +109,7 @@ open class LottieAnimationView: LottieAnimationViewBase {
     lottieAnimationLayer = LottieAnimationLayer(
       animation: animation,
       imageProvider: imageProvider,
+      replacementImages: replacementImages,
       textProvider: textProvider,
       fontProvider: fontProvider,
       configuration: configuration,
