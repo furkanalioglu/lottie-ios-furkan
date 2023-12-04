@@ -6,26 +6,25 @@
 //
 
 import Foundation
+import UIKit
 
 /// Connects a LottieImageProvider to a group of image layers
 final class LayerImageProvider {
 
   // MARK: Lifecycle
 
-  init(imageProvider: AnimationImageProvider, assets: [String: ImageAsset]?) {
+    init(imageProvider: AnimationImageProvider, assets: [String: ImageAsset]?, replacementImages: [String: String]?) {
     self.imageProvider = imageProvider
-    imageLayers = [ImageCompositionLayer]()
-    if let assets = assets {
-      imageAssets = assets
-    } else {
-      imageAssets = [:]
-    }
+    self.imageLayers = [ImageCompositionLayer]()
+    self.imageAssets = assets ?? [:]
+    self.replacementImages = replacementImages ?? [:]
     reloadImages()
   }
 
   // MARK: Internal
 
   private(set) var imageLayers: [ImageCompositionLayer]
+    private(set) var replacementImages: [String: String]
   let imageAssets: [String: ImageAsset]
 
   var imageProvider: AnimationImageProvider {
@@ -43,12 +42,20 @@ final class LayerImageProvider {
     }
   }
 
-  func reloadImages() {
-    for imageLayer in imageLayers {
-      if let asset = imageAssets[imageLayer.imageReferenceID] {
-        imageLayer.image = imageProvider.imageForAsset(asset: asset)
-        imageLayer.imageContentsGravity = imageProvider.contentsGravity(for: asset)
-      }
+    func reloadImages() {
+        for imageLayer in imageLayers {
+            if let asset = imageAssets[imageLayer.imageReferenceID] {
+                if let newImageName = replacementImages[asset.name],
+                   let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+                    let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent(newImageName)
+                    if let image = UIImage(contentsOfFile: imageURL.path)?.cgImage {
+                        imageLayer.image = image
+                    }
+                } else {
+                    // If the asset's name is not in imageReplacementMap, use the default provider
+                    imageLayer.image = imageProvider.imageForAsset(asset: asset)
+                }
+            }
+        }
     }
-  }
 }

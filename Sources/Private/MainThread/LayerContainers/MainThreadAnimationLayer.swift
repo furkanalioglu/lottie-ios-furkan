@@ -21,12 +21,13 @@ final class MainThreadAnimationLayer: CALayer, RootAnimationLayer {
   init(
     animation: LottieAnimation,
     imageProvider: AnimationImageProvider,
+    replacementImages:[String:String],
     textProvider: AnimationKeypathTextProvider,
     fontProvider: AnimationFontProvider,
     maskAnimationToBounds: Bool,
     logger: LottieLogger)
   {
-    layerImageProvider = LayerImageProvider(imageProvider: imageProvider, assets: animation.assetLibrary?.imageAssets)
+    layerImageProvider = LayerImageProvider(imageProvider: imageProvider, assets: animation.assetLibrary?.imageAssets, replacementImages: replacementImages)
     layerTextProvider = LayerTextProvider(textProvider: textProvider)
     layerFontProvider = LayerFontProvider(fontProvider: fontProvider)
     animationLayers = []
@@ -90,7 +91,7 @@ final class MainThreadAnimationLayer: CALayer, RootAnimationLayer {
     }
 
     animationLayers = []
-    layerImageProvider = LayerImageProvider(imageProvider: BlankImageProvider(), assets: nil)
+    layerImageProvider = LayerImageProvider(imageProvider: BlankImageProvider(), assets: nil, replacementImages: [:])
     layerTextProvider = LayerTextProvider(textProvider: DefaultTextProvider())
     layerFontProvider = LayerFontProvider(fontProvider: DefaultFontProvider())
     logger = typedLayer.logger

@@ -18,12 +18,16 @@ public class LottieAnimationLayer: CALayer {
   public init(
     animation: LottieAnimation?,
     imageProvider: AnimationImageProvider? = nil,
+    replacementImages: [String: String]? = nil,
     textProvider: AnimationKeypathTextProvider = DefaultTextProvider(),
     fontProvider: AnimationFontProvider = DefaultFontProvider(),
     configuration: LottieConfiguration = .shared,
     logger: LottieLogger = .shared)
   {
     self.animation = animation
+    if let replacementImages{
+        self.replacementImages = replacementImages
+    }
     self.imageProvider = imageProvider ?? BundleImageProvider(bundle: Bundle.main, searchPath: nil)
     self.textProvider = textProvider
     self.fontProvider = fontProvider
@@ -677,6 +681,10 @@ public class LottieAnimationLayer: CALayer {
       }
     }
   }
+    
+    /// Sends the images that should be changed in lottie during runtime
+    public var replacementImages : [String:String] = [:]
+
 
   /// Sets the current animation time with a time in seconds.
   ///
@@ -1156,7 +1164,7 @@ public class LottieAnimationLayer: CALayer {
     case .specific(.coreAnimation):
       rootAnimationLayer = makeCoreAnimationLayer(for: animation)
     case .specific(.mainThread):
-      rootAnimationLayer = makeMainThreadAnimationLayer(for: animation)
+        rootAnimationLayer = makeMainThreadAnimationLayer(for: animation,replacementImages: self.replacementImages)
     }
 
     guard let animationLayer = rootAnimationLayer else {
@@ -1181,10 +1189,11 @@ public class LottieAnimationLayer: CALayer {
     currentFrame = CGFloat(animation.startFrame)
   }
 
-  fileprivate func makeMainThreadAnimationLayer(for animation: LottieAnimation) -> MainThreadAnimationLayer {
+    fileprivate func makeMainThreadAnimationLayer(for animation: LottieAnimation, replacementImages: [String:String]) -> MainThreadAnimationLayer {
     let mainThreadAnimationLayer = MainThreadAnimationLayer(
       animation: animation,
       imageProvider: imageProvider.cachedImageProvider,
+      replacementImages: replacementImages,
       textProvider: textProvider,
       fontProvider: fontProvider,
       maskAnimationToBounds: maskAnimationToBounds,
