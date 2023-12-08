@@ -430,15 +430,24 @@ extension CoreAnimationLayer: RootAnimationLayer {
     (sublayers ?? []).filter { $0 is AnimationLayer }
   }
 
-  func reloadImages() {
-    // When the image provider changes, we have to update all `ImageLayer`s
-    // so they can query the most up-to-date image from the new image provider.
-    for sublayer in allSublayers {
-      if let imageLayer = sublayer as? ImageLayer {
-        imageLayer.setupImage(context: layerContext)
-      }
+    func reloadImages() {
+        // When the image provider changes, we have to update all `ImageLayer`s
+        // so they can query the most up-to-date image from the new image provider.
+        for sublayer in allSublayers {
+            if let imageLayer = sublayer as? ImageLayer {
+                // Setup image for the layer
+                imageLayer.setupImage(context: layerContext)
+
+                // Assuming imageLayer has a property that holds the UIImage or similar
+                
+                    for layer in imageLayer.allSublayers {
+                        print("🏂🏾 Lottie provided image, Image size: \(layer)")
+                    }
+                
+            }
+        }
     }
-  }
+
 
   func reloadFonts() {
     // When the text provider changes, we have to update all `TextLayer`s
