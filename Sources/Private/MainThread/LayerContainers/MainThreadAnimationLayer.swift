@@ -126,7 +126,12 @@ final class MainThreadAnimationLayer: CALayer, RootAnimationLayer {
     }
     return super.action(forKey: event)
   }
+    
 
+    public func getImageLayers() -> [ImageCompositionLayer] {
+        return layerImageProvider.imageLayers
+    }
+    
   public override func display() {
     guard Thread.isMainThread else { return }
     var newFrame: CGFloat
