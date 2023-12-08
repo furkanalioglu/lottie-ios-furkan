@@ -740,6 +740,15 @@ open class LottieAnimationView: LottieAnimationViewBase {
       sublayer.addSublayer(subViewLayer)
     }
   }
+    
+    public func getImageLayers() -> [CALayer]? {
+        if let mainThreadLayer = self.layer as? MainThreadAnimationLayer {
+            print("got imgs")
+            return mainThreadLayer.getImageLayers()
+        }
+        print("failed imgs")
+        return nil
+    }
 
   /// Converts a CGRect from the LottieAnimationView's coordinate space into the
   /// coordinate space of the layer found at Keypath.
