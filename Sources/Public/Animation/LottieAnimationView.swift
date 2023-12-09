@@ -1063,16 +1063,24 @@ open class LottieAnimationView: LottieAnimationViewBase {
 
 import UIKit
 
+
 extension LottieAnimationView {
     public func getLayerImages() -> [UIImage]? {
-        guard let mainThreadLayer = self.lottieAnimationLayer.animationLayer as? MainThreadAnimationLayer else { return nil }
+        guard let mainThreadLayer = self.lottieAnimationLayer.animationLayer as? MainThreadAnimationLayer else {
+            print("MainThreadAnimationLayer not found")
+            return nil
+        }
+        
         let imageLayers = mainThreadLayer.customLayerImageProvider.getImageLayers()
+        print("Found \(imageLayers.count) image layers")
 
         var images = [UIImage]()
         for layer in imageLayers {
             if let cgImage = layer.contents {
                 let uiImage = UIImage(cgImage: cgImage as! CGImage)
                 images.append(uiImage)
+            } else {
+                print("Layer contents are not a CGImage or are nil")
             }
         }
         return images

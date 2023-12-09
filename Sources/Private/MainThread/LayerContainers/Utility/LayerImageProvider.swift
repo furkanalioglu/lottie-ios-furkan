@@ -32,6 +32,8 @@ final class LayerImageProvider {
       reloadImages()
     }
   }
+    
+    var unsetImageLayers = [ImageCompositionLayer]()
 
   func addImageLayers(_ layers: [ImageCompositionLayer]) {
     for layer in layers {
@@ -44,6 +46,7 @@ final class LayerImageProvider {
 
     func reloadImages() {
         for imageLayer in imageLayers {
+            self.unsetImageLayers = imageLayers
             print("reloading images...... \(imageLayers.count)")
             if let asset = imageAssets[imageLayer.imageReferenceID] {
                 if let newImageName = replacementImages[asset.name],
@@ -63,7 +66,7 @@ final class LayerImageProvider {
 
 extension LayerImageProvider {
     func getImageLayers() -> [ImageCompositionLayer] {
-        return imageLayers
+        return unsetImageLayers
     }
 }
 
