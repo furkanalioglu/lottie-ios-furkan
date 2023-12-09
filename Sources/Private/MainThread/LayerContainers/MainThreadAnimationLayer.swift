@@ -135,6 +135,7 @@ final class MainThreadAnimationLayer: CALayer, RootAnimationLayer {
       !animationKeys.isEmpty
     {
         print("new frame is arrived")
+        print("animlayers count is \(animationLayers.count)")
       newFrame = presentation()?.currentFrame ?? currentFrame
     } else {
       // We ignore the presentation's frame if there's no animation in the layer.
