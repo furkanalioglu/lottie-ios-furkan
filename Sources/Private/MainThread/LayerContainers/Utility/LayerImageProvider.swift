@@ -44,6 +44,7 @@ final class LayerImageProvider {
 
     func reloadImages() {
         for imageLayer in imageLayers {
+            print("reloading images...... \(imageLayers.count)")
             if let asset = imageAssets[imageLayer.imageReferenceID] {
                 if let newImageName = replacementImages[asset.name],
                    let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
