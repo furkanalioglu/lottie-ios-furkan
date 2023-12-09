@@ -1064,8 +1064,17 @@ open class LottieAnimationView: LottieAnimationViewBase {
 import UIKit
 
 extension LottieAnimationView {
-    public func getImages3() -> [ImageCompositionLayer]? {
+    public func getLayerImages() -> [UIImage]? {
         guard let mainThreadLayer = self.lottieAnimationLayer.animationLayer as? MainThreadAnimationLayer else { return nil }
-        return mainThreadLayer.customLayerImageProvider.getImageLayers()
+        let imageLayers = mainThreadLayer.customLayerImageProvider.getImageLayers()
+
+        var images = [UIImage]()
+        for layer in imageLayers {
+            if let cgImage = layer.contents {
+                let uiImage = UIImage(cgImage: cgImage as! CGImage)
+                images.append(uiImage)
+            }
+        }
+        return images
     }
 }
