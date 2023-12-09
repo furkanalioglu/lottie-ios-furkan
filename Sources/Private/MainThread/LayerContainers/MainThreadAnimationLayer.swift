@@ -137,15 +137,13 @@ final class MainThreadAnimationLayer: CALayer, RootAnimationLayer {
       newFrame = presentation()?.currentFrame ?? currentFrame
     } else {
       // We ignore the presentation's frame if there's no animation in the layer.
-        print("new frame fired here 1 ")
       newFrame = currentFrame
     }
     if respectAnimationFrameRate {
       newFrame = floor(newFrame)
-        print("new frame fired here 2 ")
     }
     for animationLayer in animationLayers {
-        print("new frame fired here 3 ")
+        print("new frame fired here 3333 ")
       animationLayer.displayWithFrame(frame: newFrame, forceUpdates: forceDisplayUpdateOnEachFrame)
     }
   }

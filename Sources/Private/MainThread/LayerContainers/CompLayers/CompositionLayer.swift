@@ -140,7 +140,6 @@ class CompositionLayer: CALayer, KeypathSearchable {
       displayContentsWithFrame(frame: frame, forceUpdates: forceUpdates)
       maskLayer?.updateWithFrame(frame: frame, forceUpdates: forceUpdates)
     }
-      print("new frame fired here 6 ")
     contentsLayer.transform = transformNode.globalTransform
     contentsLayer.opacity = transformNode.opacity
     contentsLayer.isHidden = !layerVisible
