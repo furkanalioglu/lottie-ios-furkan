@@ -64,32 +64,30 @@ final class LayerImageProvider {
 extension LayerImageProvider {
     func getImages() -> [String: UIImage] {
         var imagesDict = [String: UIImage]()
+
+        // Iterate through each image layer
         for imageLayer in imageLayers {
             let assetID = imageLayer.imageReferenceID
-            var image: UIImage?
 
-            // Check if there's a replacement image
+            // First, check for a replacement image
             if let asset = imageAssets[assetID],
                let newImageName = replacementImages[asset.name],
-               let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-                let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent(newImageName)
-                image = UIImage(contentsOfFile: imageURL.path)
+               let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first,
+               let image = UIImage(contentsOfFile: URL(fileURLWithPath: dirPath).appendingPathComponent(newImageName).path) {
+                imagesDict[assetID] = image
+                continue
             }
 
             // If no replacement image, use the default provider
-            if image == nil, let asset = imageAssets[assetID],
+            if let asset = imageAssets[assetID],
                let cgImage = imageProvider.imageForAsset(asset: asset) {
-                image = UIImage(cgImage: cgImage)
-            }
-
-            // Add the image to the dictionary if it exists
-            if let finalImage = image {
-                imagesDict[assetID] = finalImage
+                imagesDict[assetID] = UIImage(cgImage: cgImage)
             }
         }
         return imagesDict
     }
 }
+
 
 
 
