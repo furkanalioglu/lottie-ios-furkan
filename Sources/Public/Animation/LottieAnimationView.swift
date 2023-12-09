@@ -1076,13 +1076,15 @@ extension LottieAnimationView {
 
         var images = [UIImage]()
         for layer in imageLayers {
-            if let cgImage = layer.contents {
-                let uiImage = UIImage(cgImage: cgImage as! CGImage)
+            if let imageCompositionLayer = layer as? ImageCompositionLayer,
+               let cgImage = imageCompositionLayer.image {
+                let uiImage = UIImage(cgImage: cgImage)
                 images.append(uiImage)
             } else {
-                print("Layer contents are not a CGImage or are nil")
+                print("Layer does not contain a valid CGImage")
             }
         }
         return images
     }
 }
+
