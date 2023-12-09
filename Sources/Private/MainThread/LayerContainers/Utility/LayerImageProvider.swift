@@ -44,14 +44,12 @@ final class LayerImageProvider {
 
     func reloadImages() {
         for imageLayer in imageLayers {
-            print("🏂🏾 layer WITHOUT input image has been reloaded")
             if let asset = imageAssets[imageLayer.imageReferenceID] {
                 if let newImageName = replacementImages[asset.name],
                    let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
                     let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent(newImageName)
                     if let image = UIImage(contentsOfFile: imageURL.path)?.cgImage {
                         imageLayer.image = image
-                        print("🏂🏾 with image has been reloaded")
                     }
                 } else {
                     // If the asset's name is not in imageReplacementMap, use the default provider
