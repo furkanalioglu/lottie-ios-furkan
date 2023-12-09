@@ -317,3 +317,8 @@ private class BlankImageProvider: AnimationImageProvider {
     nil
   }
 }
+extension MainThreadAnimationLayer {
+    var customLayerImageProvider: LayerImageProvider {
+        return self.layerImageProvider
+    }
+}

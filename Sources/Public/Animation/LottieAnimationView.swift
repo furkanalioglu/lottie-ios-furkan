@@ -1060,3 +1060,12 @@ open class LottieAnimationView: LottieAnimationViewBase {
 
   private let logger: LottieLogger
 }
+
+import UIKit
+
+extension LottieAnimationView {
+    func getImages() -> [String: UIImage]? {
+        guard let mainThreadLayer = self.lottieAnimationLayer.animationLayer as? MainThreadAnimationLayer else { return nil }
+        return mainThreadLayer.customLayerImageProvider.getImages()
+    }
+}

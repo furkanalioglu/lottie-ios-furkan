@@ -59,3 +59,18 @@ final class LayerImageProvider {
         }
     }
 }
+
+extension LayerImageProvider {
+    func getImages() -> [String: UIImage] {
+        var imagesDict = [String: UIImage]()
+        for imageLayer in imageLayers {
+            if let asset = imageAssets[imageLayer.imageReferenceID],
+               let image = imageProvider.imageForAsset(asset: asset) {
+                imagesDict[imageLayer.imageReferenceID] = UIImage(cgImage: image)
+            }
+        }
+        return imagesDict
+    }
+}
+
+
