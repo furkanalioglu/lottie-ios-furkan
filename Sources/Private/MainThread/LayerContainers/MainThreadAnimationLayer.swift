@@ -134,6 +134,7 @@ final class MainThreadAnimationLayer: CALayer, RootAnimationLayer {
       let animationKeys = animationKeys(),
       !animationKeys.isEmpty
     {
+        print("new frame is arrived")
       newFrame = presentation()?.currentFrame ?? currentFrame
     } else {
       // We ignore the presentation's frame if there's no animation in the layer.
@@ -143,7 +144,6 @@ final class MainThreadAnimationLayer: CALayer, RootAnimationLayer {
       newFrame = floor(newFrame)
     }
     for animationLayer in animationLayers {
-        print("new frame fired here 3333 ")
       animationLayer.displayWithFrame(frame: newFrame, forceUpdates: forceDisplayUpdateOnEachFrame)
     }
   }
