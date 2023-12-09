@@ -9,7 +9,7 @@ import CoreGraphics
 import Foundation
 import QuartzCore
 
-final class ImageCompositionLayer: CompositionLayer {
+final public class ImageCompositionLayer: CompositionLayer {
 
   // MARK: Lifecycle
 

@@ -11,7 +11,7 @@ import QuartzCore
 // MARK: - CompositionLayer
 
 /// The base class for a child layer of CompositionContainer
-class CompositionLayer: CALayer, KeypathSearchable {
+public class CompositionLayer: CALayer, KeypathSearchable {
 
   // MARK: Lifecycle
 
