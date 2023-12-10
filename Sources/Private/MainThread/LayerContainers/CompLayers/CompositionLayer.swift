@@ -136,7 +136,7 @@ class CompositionLayer: CALayer, KeypathSearchable {
     let layerVisible = frame.isInRangeOrEqual(inFrame, outFrame)
     /// Only update contents if current time is within the layers time bounds.
     if layerVisible {
-        print("new frame fired here 5 ")
+        //MARK: - FURKANLOG UPDATES HERE
       displayContentsWithFrame(frame: frame, forceUpdates: forceUpdates)
       maskLayer?.updateWithFrame(frame: frame, forceUpdates: forceUpdates)
     }
