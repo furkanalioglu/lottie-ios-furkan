@@ -72,8 +72,10 @@ class AnimationCompletionDelegate: NSObject, CAAnimationDelegate {
     guard ignoreDelegate == false else { return }
     animationState = flag ? .complete : .cancelled
     if let animationLayer = animationLayer, let key = animationKey {
+        print("LOTLOG2 REMOVED ANIMATION FOR NEXT")
       animationLayer.removeAnimation(forKey: key)
       if flag {
+          print("LOTLOG2 CHANGED CURRENT FRAME")
         animationLayer.currentFrame = (anim as! CABasicAnimation).toValue as! CGFloat
       }
     }

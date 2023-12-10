@@ -115,11 +115,13 @@ public class LottieAnimationLayer: CALayer {
     }
 
     if shouldOverrideWithReducedMotionAnimation {
+        print("LOTLOG SHOULD OVER HERE")
       playReducedMotionAnimation(completion: completion)
       return
     }
 
     /// Build a context for the animation.
+    print("LOTLOG BUILD A CONTEXT FOR ANIMATION")
     let context = AnimationContext(
       playFrom: CGFloat(animation.startFrame),
       playTo: CGFloat(animation.endFrame),
@@ -1325,6 +1327,7 @@ public class LottieAnimationLayer: CALayer {
   fileprivate func removeCurrentAnimationIfNecessary() {
     switch currentRenderingEngine {
     case .mainThread:
+    print("LOTLOG REMOVED ANIMATION FROM RENDERING ENGINE")
       removeCurrentAnimation()
     case .coreAnimation, nil:
       // We still need to remove the `animationContext`, since it should only be present
