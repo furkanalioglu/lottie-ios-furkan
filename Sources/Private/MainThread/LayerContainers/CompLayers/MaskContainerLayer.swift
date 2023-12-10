@@ -74,6 +74,7 @@ final class MaskContainerLayer: CALayer {
 
   func updateWithFrame(frame: CGFloat, forceUpdates: Bool) {
     for maskLayer in maskLayers {
+        print("LOTLOG MASK LAYER UPDATING WITH FRAME")
       maskLayer.updateWithFrame(frame: frame, forceUpdates: forceUpdates)
     }
   }
@@ -133,11 +134,13 @@ private class MaskLayer: CALayer {
     if properties.opacity.needsUpdate(frame: frame) || forceUpdates {
       properties.opacity.update(frame: frame)
       opacity = Float(properties.opacity.value.cgFloatValue)
+        print("LOTLOG UPDATED OPACITY")
     }
 
     if properties.shape.needsUpdate(frame: frame) || forceUpdates {
       properties.shape.update(frame: frame)
       properties.expansion.update(frame: frame)
+        print("LOTLOG UPDATED SHAPE")
 
       let shapePath = properties.shape.value.cgPath()
       var path = shapePath
@@ -150,6 +153,7 @@ private class MaskLayer: CALayer {
         newPath.addRect(CGRect.veryLargeRect)
         newPath.addPath(shapePath)
         path = newPath
+          print("LOTLOG  ADDDED RECT")
       }
       maskLayer.path = path
     }
