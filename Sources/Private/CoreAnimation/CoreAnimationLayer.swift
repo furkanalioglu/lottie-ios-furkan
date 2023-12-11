@@ -549,8 +549,6 @@ extension CoreAnimationLayer: RootAnimationLayer {
         UIGraphicsEndImageContext()
         return image
     }
-
-
 }
 
 // MARK: - CALayer + allSublayers
