@@ -3,6 +3,7 @@
 
 import Foundation
 import QuartzCore
+import UIKit
 
 // MARK: - CoreAnimationLayer
 
@@ -136,7 +137,7 @@ final class CoreAnimationLayer: BaseAnimationLayer {
     pendingAnimationConfiguration = (
       animationConfiguration: configuration,
       playbackState: playbackState)
-
+      print("playeddddd")
     setNeedsDisplay()
   }
 
@@ -528,6 +529,26 @@ extension CoreAnimationLayer: RootAnimationLayer {
       sublayer.removeAllAnimations()
     }
   }
+    
+    func extractImages(from layer: CoreAnimationLayer, animation: LottieAnimation) -> [UIImage] {
+        var images = [UIImage]()
+        for frame in 0..<100 {
+            layer.currentFrame = AnimationFrameTime(frame)
+            let image = snapshotImage(of: layer)
+            images.append(image)
+        }
+        return images
+    }
+
+    func snapshotImage(of layer: CALayer) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(layer.bounds.size, false, 0)
+        guard let context = UIGraphicsGetCurrentContext() else { return UIImage() }
+        layer.render(in: context)
+        let image = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
+        UIGraphicsEndImageContext()
+        return image
+    }
+
 
 }
 
