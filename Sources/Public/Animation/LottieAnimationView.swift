@@ -120,7 +120,6 @@ open class LottieAnimationView: LottieAnimationViewBase {
     if let animation = animation {
       frame = animation.bounds
     }
-      NotificationCenter.default.addObserver(self, selector: (#selector(receivedLayer)), name: Notification.Name("hey"), object: nil)
   }
 
   /// Initializes an AnimationView with a .lottie file.
@@ -554,8 +553,6 @@ open class LottieAnimationView: LottieAnimationViewBase {
     get { lottieAnimationLayer.respectAnimationFrameRate }
     set { lottieAnimationLayer.respectAnimationFrameRate = newValue }
   }
-    
-    public var lotim2 = [UIImage]()
 
   /// Controls the cropping of an Animation. Setting this property will crop the animation
   /// to the current views bounds by the viewport frame. The coordinate space is specified
@@ -1062,31 +1059,4 @@ open class LottieAnimationView: LottieAnimationViewBase {
   // MARK: Private
 
   private let logger: LottieLogger
-}
-import UIKit
-public extension LottieAnimationView {
-    @objc func receivedLayer(_ notification: NSNotification) {
-        guard let compositionLayer = notification.object as? CompositionLayer else {
-            print("Lottie cannot parse object")
-            return
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            let size = compositionLayer.bounds.size
-            UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-            guard let context = UIGraphicsGetCurrentContext() else { return }
-            
-            // Render the layer
-            compositionLayer.render(in: context)
-
-            // Convert to UIImage
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-
-            if let image = image {
-                self.lotim2.append(image)
-            }
-        }
-
-    }
 }
