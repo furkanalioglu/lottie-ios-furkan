@@ -1198,7 +1198,7 @@ public class LottieAnimationLayer: CALayer {
       fontProvider: fontProvider,
       maskAnimationToBounds: maskAnimationToBounds,
       logger: logger)
-
+        print("lottielog made main animation layer")
     mainThreadAnimationLayer.forceDisplayUpdateOnEachFrame = mainThreadRenderingEngineShouldForceDisplayUpdateOnEachFrame
     return mainThreadAnimationLayer
   }

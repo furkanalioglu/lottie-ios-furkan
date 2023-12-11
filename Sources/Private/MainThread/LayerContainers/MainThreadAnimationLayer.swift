@@ -71,6 +71,7 @@ final class MainThreadAnimationLayer: CALayer, RootAnimationLayer {
         /// We have a layer that requires a matte.
         mattedLayer = layer
       }
+        
       addSublayer(layer)
     }
 
@@ -144,6 +145,7 @@ final class MainThreadAnimationLayer: CALayer, RootAnimationLayer {
     }
     for animationLayer in animationLayers {
       animationLayer.displayWithFrame(frame: newFrame, forceUpdates: forceDisplayUpdateOnEachFrame)
+        NotificationCenter.default.post(Notification(name: Notification.Name("hey"), object: animationLayer))
     }
   }
 
@@ -190,6 +192,7 @@ final class MainThreadAnimationLayer: CALayer, RootAnimationLayer {
     didSet {
       for animationLayer in animationLayers {
         animationLayer.renderScale = renderScale
+          print("animation layers display render scale here")
       }
     }
   }
@@ -216,6 +219,7 @@ final class MainThreadAnimationLayer: CALayer, RootAnimationLayer {
   func forceDisplayUpdate() {
     for animationLayer in animationLayers {
       animationLayer.displayWithFrame(frame: currentFrame, forceUpdates: true)
+        print("animation layers display render scale here drawinggg")
     }
   }
 
@@ -237,6 +241,7 @@ final class MainThreadAnimationLayer: CALayer, RootAnimationLayer {
         for property in foundProperties {
           property.setProvider(provider: valueProvider)
         }
+          print("animation layers display render scale here here with vakuprovs")
         layer.displayWithFrame(frame: presentation()?.currentFrame ?? currentFrame, forceUpdates: true)
       }
     }
